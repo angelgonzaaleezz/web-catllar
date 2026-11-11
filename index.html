@@ -51,35 +51,129 @@
         <div class="recuadros-partido">
             <section class="recuadro-partido">
                 <h2>Últim partit:</h2>
-                <div class="equipos-partido">
-                    <div class="equipo-partido">
-                        <span class="escudo-partido" aria-hidden="true"></span>
-                        <span>Nom</span>
-                        <strong>1</strong>
-                    </div>
-                    <div class="equipo-partido">
-                        <span class="escudo-partido" aria-hidden="true"></span>
-                        <span>Nom</span>
-                        <strong>2</strong>
-                    </div>
-                </div>
+                <div id="ultim-partit" class="partido-info"><p>Carregant…</p></div>
             </section>
 
             <section class="recuadro-partido">
                 <h2>Pròxim partit:</h2>
-                <div class="equipos-partido">
-                    <div class="equipo-partido">
-                        <span class="escudo-partido" aria-hidden="true"></span>
-                        <span>Nom</span>
-                    </div>
-                    <div class="equipo-partido">
-                        <span class="escudo-partido" aria-hidden="true"></span>
-                        <span>Nom</span>
-                    </div>
-                </div>
-                <p class="datos-partido">Lloc:<br>Data:</p>
+                <div id="proxim-partit" class="partido-info"><p>Carregant…</p></div>
             </section>
         </div>
+        
     </main>
+    <script>
+        // [CONFIGURACIÓ]
+        // URL del proxy CORS que fa de mitjà entre el navegador i la FCF (la FCF bloquea CORS directes).
+        const PROXY = "https://goalapi.juansureda.workers.dev/?url=";
+        const FCF_URL = "https://www.fcf.cat/api/competition/partidos?grupId=58161859";
+        const NOMBRE_CLUB = "EL CATLLAR";
+        // Els escuds es troben a files.fcf.cat/escudos/clubes/escudos/ + nom del fitxer (camp ESCUDO_CASA / ESCUDO_FUERA de l'API)
+        const ESCUDO_BASE = "https://files.fcf.cat/escudos/clubes/escudos/";
+
+        // [FORMATAR DATA]
+        // Converteix una data ISO (ex: 2026-11-14T18:00:00) a format llegible en català.
+        function formatearDataHora(comienzo) {
+            const fecha = new Date(comienzo);
+            if (Number.isNaN(fecha.getTime())) return "";
+
+            const data = new Intl.DateTimeFormat("ca-ES", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }).format(fecha);
+            const hora = new Intl.DateTimeFormat("ca-ES", {
+                hour: "2-digit",
+                minute: "2-digit"
+            }).format(fecha);
+
+            return `${data} ${hora}`;
+        }
+
+        // [RENDITZAR]
+        // Crea els elements HTML (equipos, marcador, data, camp) i els insereix al div corresponent.
+        function renderizarPartido(contenedor, partido) {
+            contenedor.replaceChildren();
+            if (!partido) {
+                contenedor.textContent = "No hi ha dades disponibles.";
+                return;
+            }
+
+            const fila = document.createElement("div");
+            const escudoCasa = document.createElement("img");
+            const info = document.createElement("div");
+            const equipos = document.createElement("p");
+            const marcador = document.createElement("strong");
+            const fecha = document.createElement("p");
+            const campo = document.createElement("p");
+            const escudoFuera = document.createElement("img");
+
+            fila.className = "fila-partido";
+            escudoCasa.className = "escudo";
+            escudoCasa.src = ESCUDO_BASE + partido.ESCUDO_CASA;
+            escudoCasa.alt = partido.NOMBRE_CASA || "";
+            info.className = "info-partido";
+            equipos.className = "equipos";
+            equipos.append(document.createTextNode(`${partido.NOMBRE_CASA || ""} `));
+            marcador.textContent = partido.GOLES_CASA !== null
+                ? `${partido.GOLES_CASA} - ${partido.GOLES_FUERA}`
+                : "vs";
+            equipos.append(marcador, document.createTextNode(` ${partido.NOMBRE_FUERA || ""}`));
+            fecha.className = "fecha";
+            fecha.textContent = `Jornada ${partido.JORNADA} · ${formatearDataHora(partido.COMIENZO1)}`;
+            campo.className = "campo";
+            campo.textContent = partido.CAMPO || "";
+            escudoFuera.className = "escudo";
+            escudoFuera.src = ESCUDO_BASE + partido.ESCUDO_FUERA;
+            escudoFuera.alt = partido.NOMBRE_FUERA || "";
+
+            info.append(equipos, fecha, campo);
+            fila.append(escudoCasa, info, escudoFuera);
+            contenedor.append(fila);
+        }
+
+        // [FETCH I FILTRAR]
+        fetch(PROXY + encodeURIComponent(FCF_URL))
+            // Comprova que la resposta HTTP és correcta i la converteix a JSON.
+            .then(respuesta => {
+                if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
+                return respuesta.json();
+            })
+            // L'API de la FCF retorna un objecte {partidos: {1:[...], 2:[...]}}. Object.values().flat() l'aplaneja a un array únic de partits. Després filtra només els partits del nostre club, els separa en jugats (tenen GOLES_CASA) i pròxims (GOLES_CASA === null), i renderitza l'últim jugat i el pròxim.
+            .then(respuesta => {
+                const partidos = Object.values(respuesta.partidos).flat();
+                if (!Array.isArray(partidos)) throw new Error("Formato de respuesta inesperado");
+                console.log(partidos[0]);
+
+                const partidosClub = partidos
+                    .filter(partido =>
+                        (partido.NOMBRE_CASA || "").toUpperCase().includes(NOMBRE_CLUB) ||
+                        (partido.NOMBRE_FUERA || "").toUpperCase().includes(NOMBRE_CLUB)
+                    );
+
+                const jugados = partidosClub
+                    .filter(partido => partido.GOLES_CASA !== null)
+                    .sort((a, b) => new Date(b.COMIENZO1) - new Date(a.COMIENZO1));
+
+                const proximos = partidosClub
+                    .filter(partido => partido.GOLES_CASA === null)
+                    .sort((a, b) => new Date(a.COMIENZO1) - new Date(b.COMIENZO1));
+
+                renderizarPartido(document.getElementById("ultim-partit"), jugados[0]);
+                renderizarPartido(document.getElementById("proxim-partit"), proximos[0]);
+            })
+            // Si alguna cosa falla (proxy caigut, xarxa, etc.), mostra un missatge d'error.
+            .catch(error => {
+                console.error("No s'han pogut carregar els partits de la FCF:", error);
+                document.getElementById("ultim-partit").textContent = "Error en carregar dades.";
+                document.getElementById("proxim-partit").textContent = "Error en carregar dades.";
+            });
+        // ============================================================
+        // Aquest script és generat per IA per a la web del C.E El Catllar.
+        // Font de dades: API interna de la FCF (no documentada oficialment).
+        // Proxy CORS: goalapi.juansureda.workers.dev (projecte open-source).
+        // Si el proxy deixa de funcionar, substituir PROXY per una altra
+        // opció: https://api.allorigins.win/raw?url=
+        // ============================================================
+    </script>
 </body>
 </html>
