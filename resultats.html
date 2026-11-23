@@ -13,16 +13,25 @@
 </head>
 <body>
     <header class="cabeza">
-        <img src="srcs/Elcatllar_200x200.png" alt="Escut" class="escudo">
-        <div class="titulos">
-            <h1>C.E El Catllar</h1>
-            <h2>Fem poble! Fem Esport! Fem Catllar! </h2>
-        </div>
+        <a class="cabeza-inici" href="index.html" title="Tornar a l'inici">
+            <img src="srcs/Elcatllar_200x200.png" alt="Escut" class="escudo">
+            <div class="titulos">
+                <h1>C.E El Catllar</h1>
+                <h2>Fem poble! Fem Esport! Fem Catllar!</h2>
+            </div>
+        </a>
         <nav class="navegacion" aria-label="Navegació principal">
             <ul>
                 <li><a href="index.html">Inici</a></li>
-                <li><a href="resultats.html" class="actiu">Resultats</a></li>
-                <li><a href="fotos.html">Fotos</a></li>
+                <li><a href="primer-equip.html">Primer Equip</a></li>
+                <li class="dropdown">
+                    <a href="futbol-base.html" class="dropdown-activador actiu">Futbol Base</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="equips.html">Equips</a></li>
+                        <li><a href="resultats.html" class="actiu">Resultats</a></li>
+                        <li><a href="fotos.html">Fotos</a></li>
+                    </ul>
+                </li>
                 <li><a href="coneix-nos.html">Coneix-nos</a></li>
                 <li><a href="fes-te-soci.html">Fes-te soci</a></li>
                 <li><a href="apunta.html">Apunta't</a></li>
@@ -43,15 +52,26 @@
 
     <footer>
         <div class="footer-esquerra">
-            <h3>C.E El Catllar</h3>
-            <p>Fem poble! Fem Esport! Fem Catllar!</p>
+            <h3>Segueix-nos a les xarxes!</h3>
+            <div class="redes">
+                <a href="https://www.instagram.com/ce_elcatllar/" target="_blank" rel="noopener">
+                    <img src="srcs/Instagram_logo_2022.svg.webp" alt="Instagram" class="logos">
+                    <span>@ce_elcatllar</span>
+                </a>
+                <a href="https://www.facebook.com/ceelcatllar" target="_blank" rel="noopener">
+                    <img src="srcs/Facebook_logo.svg" alt="Facebook" class="logos">
+                    <span>ce_elcatllar</span>
+                </a>
+                <a href="https://x.com/ce_elcatllar" target="_blank" rel="noopener">
+                    <img src="srcs/X_logo.svg" alt="X" class="logos">
+                    <span>@ce_elcatllar</span>
+                </a>
+            </div>
         </div>
         <div class="info-club">
             <h3>Informació del club</h3>
-            <p class="adreca">Adreça: <strong>Carrer del Camp, s/n</strong></p>
-            <p class="camp">Camp: <strong>Camp de Futbol Municipal del Catllar</strong></p>
-            <p>Telèfon: <strong>600 000 000</strong></p>
-            <p>Correu: <strong>contacte@elcatllar.cat</strong></p>
+            <p class="camp"><strong>Camp:</strong> CAMP DE FUTBOL MPAL. DEL CATLLAR</p>
+            <p class="adreca"><strong>Web:</strong> <a href="http://www.elcatllar.cat" target="_blank" rel="noopener">www.elcatllar.cat</a></p>
         </div>
     </footer>
 

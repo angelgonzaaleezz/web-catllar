@@ -19,66 +19,183 @@ body {
 
 
 .escudo {
-  width: 70px;
-  height: 70px;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
 }
-
 
 .cabeza {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center; 
-  gap: 10px;      
-  background-color: rgba(255, 238, 0, 0.75);
-  padding: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background-color: rgba(255, 238, 0, 0.9);
+  padding: 12px 24px;
+  border-bottom: 2px solid #ffee00;
+  flex-wrap: nowrap;
 }
 
-.navegacion {
-  flex: 1;
-  min-width: min(100%, 280px);
-}
-
-.navegacion ul {
+.cabeza-inici {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(12px, 5vw, 200px);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.navegacion li {
-  color: rgb(34, 34, 255);
-  font-family: 'League Spartan', sans-serif;
-  font-size: 22px;
-  font-weight: bold;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .titulos {
   display: flex;
-  flex-direction: column; 
-  gap: 2px;               
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.1;
 }
-
 
 .cabeza h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 22px;
   color: rgb(34, 34, 255);
   font-family: 'League Spartan', sans-serif;
-  font-weight: bold;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .cabeza h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: rgb(34, 34, 255);
   font-family: Pacifico, sans-serif;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
-.cabeza img {
-  display: block; 
+.navegacion {
+  display: flex;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.navegacion ul {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.navegacion li {
+  position: relative;
+}
+
+.navegacion a {
+  display: block;
+  padding: 8px 12px;
+  color: rgb(34, 34, 255);
+  font-family: 'League Spartan', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.navegacion a:hover,
+.navegacion a.actiu {
+  background-color: rgba(255, 238, 0, 0.9);
+  color: rgb(34, 34, 255);
+}
+
+.navegacion a.actiu {
+  font-weight: 700;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-activador::after {
+  content: " ▾";
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  padding: 8px 0;
+  background: rgba(255, 238, 0, 0.95);
+  border: 1px solid #ffee00;
+  border-radius: 0 0 6px 6px;
+  list-style: none;
+  min-width: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 16px;
+  color: rgb(34, 34, 255);
+  font-family: 'League Spartan', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 0;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(255, 238, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .cabeza {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  
+  .cabeza-inici {
+    order: 1;
+  }
+  
+  .navegacion {
+    order: 2;
+    width: 100%;
+  }
+  
+  .navegacion ul {
+    justify-content: center;
+    gap: 4px;
+  }
+  
+  .navegacion a {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+  
+  .cabeza h1 { font-size: 20px; }
+  .cabeza h2 { font-size: 13px; }
+  .escudo { width: 56px; height: 56px; }
 }
 
 .contenido-inicio {
@@ -137,7 +254,7 @@ body {
   display: block;
   margin: 0 0 8px;
   padding: 12px 18px;
-  border: 1px solid #ffad35;
+  border: 1px solid #ffee00;
   background-color: rgba(255, 238, 0, 0.62);
   color: rgb(34, 34, 255);
   font-family: 'League Spartan', sans-serif;
@@ -186,9 +303,9 @@ body {
 
 .recuadro-partido {
   padding: 18px;
-  border: 1px solid #ffad35;
+  border: 1px solid #ffee00;
   background-color: rgba(255, 238, 0, 0.16);
-  color: #ffad35;
+  color: #ffee00;
   font-family: Georgia, serif;
   font-size: 14px;
   display: flex;
@@ -280,7 +397,7 @@ body {
 .fecha {
   font-family: 'League Spartan', sans-serif;
   font-size: 12px;
-  color: #ffad35;
+  color: #ffee00;
   margin: 0;
   text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
@@ -370,14 +487,13 @@ footer h3 {
 
 /* CLASSIFICACIÓ - rectangle groc, minimalista, 3 columnes, estira fins al final del fons */
 .recuadro-classificacio {
-  flex: 1 1 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 14px 18px;
-  border: 1px solid rgba(255, 173, 53, 0.6);
+  border: 1px solid rgba(255, 238, 0, 0.6);
   background-color: rgba(255, 238, 0, 0.22);
-  min-height: 0;
-  height: 100%;
+  min-height: 300px;
 }
 
 .recuadro-classificacio h2 {
@@ -388,14 +504,12 @@ footer h3 {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   margin: 0 0 8px;
   text-align: center;
-  flex-shrink: 0;
 }
 
 .classificacio-info {
-  flex: 1 1 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0;
 }
 
 .classificacio-info p {
@@ -414,7 +528,8 @@ footer h3 {
   font-family: 'League Spartan', sans-serif;
   font-size: 12px;
   flex: 1;
-  align-content: start;
+  height: 100%;
+  min-height: 0;
 }
 
 .xarxa-columna {
@@ -425,19 +540,66 @@ footer h3 {
   gap: 1px;
   background-color: rgba(255, 238, 0, 0.22);
   border-right: 1px solid rgba(255, 238, 0, 0.28);
+  height: 100%;
 }
 .xarxa-columna:last-child {
   border-right: none;
 }
 
+/* Indicadors de posició: ascens, playoff, descendent */
+.cella-classificacio::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+/* Posició 1: Verd (ascens directe) */
+.cella-classificacio.pos-1::before,
+.cella-classificacio.equip-club.pos-1::before {
+  background: #2ecc71 !important;
+  box-shadow: 0 0 6px #2ecc71;
+}
+
+/* Posició 2: Blau */
+.cella-classificacio.pos-2::before,
+.cella-classificacio.equip-club.pos-2::before {
+  background: #3498db !important;
+  box-shadow: 0 0 6px #3498db;
+}
+
+/* Posició 3-6: Taronja */
+.cella-classificacio.pos-3::before,
+.cella-classificacio.pos-4::before,
+.cella-classificacio.pos-5::before,
+.cella-classificacio.pos-6::before,
+.cella-classificacio.equip-club.pos-3::before,
+.cella-classificacio.equip-club.pos-4::before,
+.cella-classificacio.equip-club.pos-5::before,
+.cella-classificacio.equip-club.pos-6::before {
+  background: #f39c12 !important;
+  box-shadow: 0 0 6px #f39c12;
+}
+
+/* Darreres 4 posicions: Descens - Vermell */
+.cella-classificacio.pos-descens::before,
+.cella-classificacio.equip-club.pos-descens::before {
+  background: #e74c3c !important;
+  box-shadow: 0 0 6px #e74c3c;
+}
+
 .cella-classificacio {
   background-color: rgba(255, 238, 0, 0.08);
-  padding: 6px 10px;
+  padding: 8px 10px;
   display: flex;
   align-items: center;
   gap: 6px;
   color: #fff;
   text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  flex: 1;
+  min-height: 0;
 }
 
 .cella-classificacio .posicio {
@@ -503,10 +665,11 @@ footer h3 {
 /* Imatge dels resultats: s'ajusta al marcador sense estirar */
 .imatge-resultats {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 760px;
+  height: auto;
   display: block;
-  border: 1px solid rgba(255, 173, 53, 0.5);
+  margin: 0 auto;
+  border: 1px solid rgba(255, 238, 0, 0.5);
   border-radius: 6px;
   cursor: zoom-in;
 }
@@ -523,7 +686,7 @@ footer h3 {
   break-inside: avoid;
   margin-bottom: 12px;
   background: rgba(255, 238, 0, 0.12);
-  border: 1px solid rgba(255, 173, 53, 0.5);
+  border: 1px solid rgba(255, 238, 0, 0.5);
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);

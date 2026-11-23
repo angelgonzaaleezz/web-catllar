@@ -13,16 +13,25 @@
 </head>
 <body>
     <header class="cabeza">
-        <img src="srcs/Elcatllar_200x200.png" alt="Escut" class="escudo">
-        <div class="titulos">
-            <h1>C.E El Catllar</h1>
-            <h2>Fem poble! Fem Esport! Fem Catllar! </h2>
-        </div>
-        <nav class="navegacion" aria-label="Navegación principal">
+        <a class="cabeza-inici" href="index.html" title="Tornar a l'inici">
+            <img src="srcs/Elcatllar_200x200.png" alt="Escut" class="escudo">
+            <div class="titulos">
+                <h1>C.E El Catllar</h1>
+                <h2>Fem poble! Fem Esport! Fem Catllar!</h2>
+            </div>
+        </a>
+        <nav class="navegacion" aria-label="Navegació principal">
             <ul>
                 <li><a href="index.html" class="actiu">Inici</a></li>
-                <li><a href="resultats.html">Resultats</a></li>
-                <li><a href="fotos.html">Fotos</a></li>
+                <li><a href="primer-equip.html">Primer Equip</a></li>
+                <li class="dropdown">
+                    <a href="futbol-base.html" class="dropdown-activador">Futbol Base</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="equips.html">Equips</a></li>
+                        <li><a href="resultats.html">Resultats</a></li>
+                        <li><a href="fotos.html">Fotos</a></li>
+                    </ul>
+                </li>
                 <li><a href="coneix-nos.html">Coneix-nos</a></li>
                 <li><a href="fes-te-soci.html">Fes-te soci</a></li>
                 <li><a href="apunta.html">Apunta't</a></li>
@@ -34,6 +43,7 @@
         <aside class="menus-inicio" aria-label="Informació del club">
             <section class="menu-grupo">
                 <h2>ÚLTIMES NOVETATS DEL PRIMER EQUIP A PRIMERA CATALANA:</h2>
+                <a class="boton-menu" href="primer-equip.html">Primer Equip →</a>
                 <a class="boton-menu" href="https://www.fcf.cat/ca/competicio/2026-2027/primera-catalana/grup-3/resultats" target="_blank" rel="noopener">Consulta la FCF →</a>
             </section>
 
@@ -69,16 +79,6 @@
         </div>
         
     </main>
-
-
-
-
-
-
-
-
-
-
 
     <script>
         // [CONFIGURACIÓ]
@@ -223,18 +223,27 @@
                 const columna = document.createElement("div");
                 columna.className = "xarxa-columna";
 
-                grup.forEach(e => {
+                grup.forEach((e, idx, arr) => {
                     const eq = e.team;
+                    const pos = Number(e.position);
+                    const totalEquips = equips.length;
                     const cella = document.createElement("div");
-                    cella.className = "cella-classificacio";
-
+                    
+                    // Classes de posició per indicadors de color
+                    let posClasses = "cella-classificacio";
+                    if (pos === 1) posClasses += " pos-1";
+                    else if (pos >= 2 && pos <= 4) posClasses += ` pos-${pos}`;
+                    else if (pos === 5 || pos === 6) posClasses += ` pos-${pos}`;
+                    else if (pos > totalEquips - 4) posClasses += " pos-descens";
+                    
                     if ((eq.name || "").toUpperCase().includes("CATLLAR")) {
-                        cella.classList.add("equip-club");
+                        posClasses += " equip-club";
                     }
+                    cella.className = posClasses;
 
                     const spanPos = document.createElement("span");
                     spanPos.className = "posicio";
-                    spanPos.textContent = e.position;
+                    spanPos.textContent = pos;
 
                     const img = document.createElement("img");
                     img.src = ESCUDO_BASE + eq.logo;
@@ -285,19 +294,20 @@
         // ============================================================
     </script>
 
-
-
-
-
-
-
-
-        <footer>
+    <footer>
         <div class="footer-esquerra">
             <h3> segueix-nos a les xarxes!</h3>
             <div class="redes">
                 <a href="https://www.instagram.com/ce_elcatllar/" target="_blank" rel="noopener">
-                    <img src="/srcs/Instagram_logo_2022.svg.webp" alt="Instagram" class="logos">
+                    <img src="srcs/Instagram_logo_2022.svg.webp" alt="Instagram" class="logos">
+                    <span>@ce_elcatllar</span>
+                </a>
+                <a href="https://www.facebook.com/ceelcatllar" target="_blank" rel="noopener">
+                    <img src="srcs/Facebook_logo.svg" alt="Facebook" class="logos">
+                    <span>ce_elcatllar</span>
+                </a>
+                <a href="https://x.com/ce_elcatllar" target="_blank" rel="noopener">
+                    <img src="srcs/X_logo.svg" alt="X" class="logos">
                     <span>@ce_elcatllar</span>
                 </a>
             </div>
