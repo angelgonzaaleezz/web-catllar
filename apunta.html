@@ -40,23 +40,23 @@
     </header>
 
     <main class="contenido-pagina">
-        <section style="max-width:600px; text-align:center;">
-            <h2 style="color:#ffee00; font-family:'League Spartan',sans-serif; font-size:28px; margin-bottom:20px; text-shadow:0 2px 4px rgba(0,0,0,0.8);">Vols jugar amb nosaltres?</h2>
-            <p style="color:#fff; font-family:'League Spartan',sans-serif; font-size:18px; line-height:1.7; margin-bottom:32px; text-shadow:0 1px 2px rgba(0,0,0,0.8);">
+        <section class="apunta-section">
+            <h2 class="apunta-title">Vols jugar amb nosaltres?</h2>
+            <p class="apunta-text">
                 Estem buscant jugadors per a les nostres categories de futbol base i primer equip. Si tens ganes d'aprendre, competir i gaudir del futbol en bon ambient, aquesta és la teva llar.
             </p>
-            <form action="mailto:inscripcions@elcatllar.cat" method="POST" enctype="text/plain" style="text-align:left; background:rgba(255,238,0,0.12); border:1px solid rgba(255,173,53,0.5); border-radius:8px; padding:32px;">
-                <div style="margin-bottom:20px;">
-                    <label for="nom" style="display:block; color:#ffee00; font-family:'League Spartan',sans-serif; font-size:16px; margin-bottom:6px; text-shadow:0 1px 2px rgba(0,0,0,0.8);">Nom i Cognoms *</label>
-                    <input type="text" id="nom" name="nom" required style="width:100%; padding:12px 16px; border:1px solid rgba(255,173,53,0.5); border-radius:4px; background:rgba(0,0,0,0.3); color:#fff; font-family:'League Spartan',sans-serif; font-size:16px; box-sizing:border-box;">
+            <form action="mailto:inscripcions@elcatllar.cat" method="POST" enctype="text/plain" class="apunta-form">
+                <div class="apunta-form-group">
+                    <label for="nom" class="apunta-label">Nom i Cognoms *</label>
+                    <input type="text" id="nom" name="nom" required class="apunta-input">
                 </div>
-                <div style="margin-bottom:20px;">
-                    <label for="data-naixement" style="display:block; color:#ffee00; font-family:'League Spartan',sans-serif; font-size:16px; margin-bottom:6px; text-shadow:0 1px 2px rgba(0,0,0,0.8);">Data de naixement *</label>
-                    <input type="date" id="data-naixement" name="data-naixement" required style="width:100%; padding:12px 16px; border:1px solid rgba(255,173,53,0.5); border-radius:4px; background:rgba(0,0,0,0.3); color:#fff; font-family:'League Spartan',sans-serif; font-size:16px; box-sizing:border-box;">
+                <div class="apunta-form-group">
+                    <label for="data-naixement" class="apunta-label">Data de naixement *</label>
+                    <input type="date" id="data-naixement" name="data-naixement" required class="apunta-input">
                 </div>
-                <div style="margin-bottom:20px;">
-                    <label for="categoria" style="display:block; color:#ffee00; font-family:'League Spartan',sans-serif; font-size:16px; margin-bottom:6px; text-shadow:0 1px 2px rgba(0,0,0,0.8);">Categoria d'interès *</label>
-                    <select id="categoria" name="categoria" required style="width:100%; padding:12px 16px; border:1px solid rgba(255,173,53,0.5); border-radius:4px; background:rgba(0,0,0,0.3); color:#fff; font-family:'League Spartan',sans-serif; font-size:16px; box-sizing:border-box;">
+                <div class="apunta-form-group">
+                    <label for="categoria" class="apunta-label">Categoria d'interès *</label>
+                    <select id="categoria" name="categoria" required class="apunta-input">
                         <option value="" disabled selected>Selecciona una categoria</option>
                         <option value="prebenjamin">Prebenjamí (2018-2019)</option>
                         <option value="benjamin">Benjamí (2016-2017)</option>
@@ -67,19 +67,17 @@
                         <option value="primer-equip">Primer Equip (seniors)</option>
                     </select>
                 </div>
-                <div style="margin-bottom:20px;">
-                    <label for="contacte" style="display:block; color:#ffee00; font-family:'League Spartan',sans-serif; font-size:16px; margin-bottom:6px; text-shadow:0 1px 2px rgba(0,0,0,0.8);">Telèfon / Email de contacte *</label>
-                    <input type="text" id="contacte" name="contacte" required placeholder="Telèfon o email del pare/mare/tutor o jugador" style="width:100%; padding:12px 16px; border:1px solid rgba(255,173,53,0.5); border-radius:4px; background:rgba(0,0,0,0.3); color:#fff; font-family:'League Spartan',sans-serif; font-size:16px; box-sizing:border-box;">
+                <div class="apunta-form-group">
+                    <label for="contacte" class="apunta-label">Telèfon / Email de contacte *</label>
+                    <input type="text" id="contacte" name="contacte" required placeholder="Telèfon o email del pare/mare/tutor o jugador" class="apunta-input">
                 </div>
-                <div style="margin-bottom:24px;">
-                    <label for="missatge" style="display:block; color:#ffee00; font-family:'League Spartan',sans-serif; font-size:16px; margin-bottom:6px; text-shadow:0 1px 2px rgba(0,0,0,0.8);">Missatge addicional</label>
-                    <textarea id="missatge" name="missatge" rows="4" placeholder="Experiència prèvia, posició preferida, motiu..." style="width:100%; padding:12px 16px; border:1px solid rgba(255,173,53,0.5); border-radius:4px; background:rgba(0,0,0,0.3); color:#fff; font-family:'League Spartan',sans-serif; font-size:16px; box-sizing:border-box; resize:vertical;"></textarea>
+                <div class="apunta-form-group">
+                    <label for="missatge" class="apunta-label">Missatge addicional</label>
+                    <textarea id="missatge" name="missatge" rows="4" placeholder="Experiència prèvia, posició preferida, motiu..." class="apunta-input"></textarea>
                 </div>
-                <button type="submit" style="width:100%; padding:14px; border:none; border-radius:4px; background:rgba(255,238,0,0.9); color:rgb(34,34,255); font-family:'League Spartan',sans-serif; font-size:18px; font-weight:bold; cursor:pointer; text-shadow:0 1px 2px rgba(0,0,0,0.2);">Enviar inscripció</button>
+                <button type="submit" class="apunta-submit">Enviar inscripció</button>
             </form>
-            <p style="margin-top:24px; color:rgba(255,255,255,0.7); font-family:'League Spartan',sans-serif; font-size:14px;">
-                També pots escriure'ns directament a <a href="mailto:inscripcions@elcatllar.cat" style="color:#ffee00;">inscripcions@elcatllar.cat</a> o trucar al <strong style="color:#fff;">600 000 000</strong>
-            </p>
+            <p class="apunta-nota">També pots escriure'ns directament a <a href="mailto:inscripcions@elcatllar.cat">inscripcions@elcatllar.cat</a> o trucar al <strong>600 000 000</strong></p>
         </section>
     </main>
 
